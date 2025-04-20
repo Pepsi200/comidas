@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Local de Comida</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Roboto:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        /* Estilos esenciales para el fold superior */
+        header {
+            background: linear-gradient(90deg, #232526 0%, #414345 100%);
+            color: #fff;
+            padding: 2rem 1rem 1.2rem 1rem;
+            text-align: center;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-radius: 32px !important;
+            backdrop-filter: blur(6px) saturate(1.2);
+        }
+
+        .slider-ofertas {
+            width: 100%;
+            max-width: 1400px;
+            margin: 2.5rem auto 2rem auto;
+            border-radius: 28px;
+            overflow: hidden;
+            box-shadow: 0 12px 40px rgba(35, 37, 38, 0.18);
+            background: #fff;
+            position: relative;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="loader-bg">
+        <div class="loader"></div>
+    </div>
+    <header class="aparecer-scroll" role="banner">
+        <h1 id="titulo-principal">Bienvenidos al Local de Comidas</h1>
+        <nav class="main-navbar" role="navigation" aria-label="Navegación principal">
+            <ul>
+                <li><a href="#slider-ofertas" tabindex="0">Inicio</a></li>
+                <li><a href="#nosotros" tabindex="0">Sobre Nosotros</a></li>
+                <li><a href="#productos" tabindex="0">Nuestros Productos</a></li>
+                <li><a href="#contacto" tabindex="0">Contacto</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div id="pedido-modal" class="pedido-modal oculto aparecer-scroll">
+        <div class="pedido-modal-content moderno-formulario">
+            <h2><i class="fas fa-utensils"></i> Realizá tu pedido</h2>
+            <p class="form-guia">Completá tus datos para recibir tu pedido en minutos</p>
+            <form id="pedido-form">
+                <div class="input-group">
+                    <span class="input-icon"><i class="fas fa-sort-numeric-up"></i></span>
+                    <input type="number" id="cantidad" name="cantidad" min="1" value="1" required
+                        placeholder="Cantidad">
+                </div>
+                <div class="input-group">
+                    <span class="input-icon"><i class="fas fa-user"></i></span>
+                    <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre completo">
+                </div>
+                <div class="input-group">
+                    <span class="input-icon"><i class="fas fa-phone"></i></span>
+                    <input type="tel" id="telefono" name="telefono" required placeholder="Teléfono de contacto">
+                </div>
+                <div class="input-group">
+                    <span class="input-icon"><i class="fas fa-map-marker-alt"></i></span>
+                    <input type="text" id="direccion" name="direccion" required placeholder="Dirección de entrega">
+                </div>
+                <div class="input-group">
+                    <span class="input-icon"><i class="fas fa-credit-card"></i></span>
+                    <input type="text" id="tarjeta-numero" name="tarjeta-numero" maxlength="19"
+                        placeholder="Número de tarjeta (16 dígitos)" autocomplete="cc-number" required>
+                </div>
+                <div class="input-group tarjeta-input-group-moderna">
+                    <input type="text" id="tarjeta-vencimiento" name="tarjeta-vencimiento" maxlength="5"
+                        placeholder="MM/AA" pattern="\d{2}/\d{2}" autocomplete="cc-exp">
+                    <input type="text" id="tarjeta-cvc" name="tarjeta-cvc" maxlength="4" placeholder="CVC"
+                        pattern="\d{3,4}" autocomplete="cc-csc">
+                </div>
+                <button type="submit" class="btn-confirmar-pedido"><i class="fas fa-check-circle"></i> Confirmar
+                    pedido</button>
+            </form>
+            <button type="button" id="pedido-cerrar-btn" class="cancelar-pedido-btn">Cerrar</button>
+            <div id="pedido-resumen" class="oculto"></div>
+        </div>
+    </div>
+    <main role="main">
+        <!-- INICIO: Slider de ofertas -->
+        <section id="slider-ofertas" class="slider-ofertas aparecer-scroll">
+            <div class="slider-wrapper">
+                <div class="slide active">
+                    <img src="https://cdn.bueno-bonito-barcelona.com/wp-content/uploads/sites/2/2018/01/Goiko-Threeler-1.jpg.webp"
+                        alt="hamburguesas" />
+                    <div class="slide-caption">Hamburguesas con el toque que te gusta✨</div>
+                </div>
+                <div class="slide">
+                    <img src="https://gourmetdemexico.com.mx/wp-content/uploads/2019/05/pizzas-portada.jpg"
+                        alt="pizza" />
+                    <div class="slide-caption">Del horno directo a tu corazón</div>
+                </div>
+                <div class="slide">
+                    <img src="https://www.hola.com/horizon/square/c37ee64432c2-portada-postres-age-t.jpg?im=Resize=(640),type=downsize"
+                        alt="postres" />
+                    <div class="slide-caption">El toque dulce que te merecés</div>
+                </div>
+                <button class="slider-btn prev" aria-label="Anterior">&#10094;</button>
+                <button class="slider-btn next" aria-label="Siguiente">&#10095;</button>
+            </div>
+        </section>
+        <!-- SOBRE NOSOTROS -->
+        <section id="nosotros" class="nosotros-seccion aparecer-scroll">
+            <h2>Sobre Nosotros</h2>
+            <p>
+                Somos un local familiar apasionado por la buena comida y la atención personalizada. Desde nuestros
+                inicios, nos dedicamos a ofrecer hamburguesas, pizzas, lomitos y postres preparados con ingredientes
+                frescos y recetas propias. Nuestro objetivo es que cada cliente viva una experiencia única, disfrute de
+                sabores auténticos y se sienta como en casa. ¡Gracias por elegirnos y ser parte de nuestra historia!
+            </p>
+            <p>
+                Nos esforzamos día a día para innovar en nuestra carta y sorprender a nuestros clientes con nuevas
+                propuestas. Valoramos la calidad, la honestidad y el trato cercano. Cada plato que servimos está pensado
+                para compartir momentos especiales, ya sea en familia, con amigos o en pareja.
+            </p>
+            <p>
+                Además, apostamos por el desarrollo local, trabajando con proveedores de la zona y apoyando iniciativas
+                solidarias. Creemos que la gastronomía es una forma de unir a las personas y de celebrar la vida. ¡Te
+                invitamos a descubrir nuestros sabores y a disfrutar de una experiencia diferente en cada visita!
+            </p>
+        </section>
+        <!-- NUESTROS PRODUCTOS -->
+        <section id="productos" class="productos-seccion aparecer-scroll" aria-labelledby="productos-titulo">
+            <h2 id="productos-titulo">Nuestros Productos</h2>
+            <div class="productos-categorias" role="group" aria-label="Categorías de productos">
+                <button class="categoria-btn" data-categoria="Pizza" tabindex="0" aria-pressed="false">Pizzas</button>
+                <button class="categoria-btn" data-categoria="Lomitos" tabindex="0"
+                    aria-pressed="false">Lomitos</button>
+                <button class="categoria-btn" data-categoria="Hamburguesa" tabindex="0"
+                    aria-pressed="false">Hamburguesas</button>
+                <button class="categoria-btn" data-categoria="Ensaladas" tabindex="0"
+                    aria-pressed="false">Ensaladas</button>
+                <button class="categoria-btn" data-categoria="Bebidas" tabindex="0"
+                    aria-pressed="false">Bebidas</button>
+                <button class="categoria-btn" data-categoria="Postres" tabindex="0"
+                    aria-pressed="false">Postres</button>
+                <button class="categoria-btn" data-categoria="todos" tabindex="0" aria-pressed="true">Todos</button>
+            </div>
+            <div id="productos-lista" class="aparecer-scroll" role="region" aria-live="polite">
+                <!-- Aquí se mostrarán los productos filtrados -->
+                <div class="rating" data-rating="4">
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                    <span class="star">★</span>
+                </div>
+            </div>
+        </section>
+        <section id="hacer-pedido" class="pedido-seccion oculto aparecer-scroll" style="display:none;">
+            <div class="pedido-form-card moderno-formulario">
+                <h2><i class="fas fa-utensils"></i> Realizá tu pedido</h2>
+                <p class="form-guia">Completá tus datos para recibir tu pedido en minutos</p>
+                <form id="form-hacer-pedido">
+                    <div class="input-group">
+                        <span class="input-icon"><i class="fas fa-hamburger"></i></span>
+                        <input type="text" id="pedido-producto" name="producto" readonly required
+                            placeholder="Producto seleccionado">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-icon"><i class="fas fa-sort-numeric-up"></i></span>
+                        <input type="number" id="pedido-cantidad" name="cantidad" min="1" value="1" required
+                            placeholder="Cantidad">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-icon"><i class="fas fa-user"></i></span>
+                        <input type="text" id="pedido-nombre" name="nombre" required placeholder="Tu nombre completo">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-icon"><i class="fas fa-phone"></i></span>
+                        <input type="tel" id="pedido-telefono" name="telefono" required
+                            placeholder="Teléfono de contacto">
+                    </div>
+                    <div class="input-group">
+                        <span class="input-icon"><i class="fas fa-map-marker-alt"></i></span>
+                        <input type="text" id="pedido-direccion" name="direccion" required
+                            placeholder="Dirección de entrega">
+                    </div>
+                    <div class="input-group tarjeta-input-group-moderna">
+                        <span class="input-icon"><i class="fas fa-credit-card"></i></span>
+                        <input type="text" id="pedido-tarjeta-numero" name="pedido-tarjeta-numero" maxlength="19"
+                            placeholder="N° de tarjeta (XXXX XXXX XXXX XXXX)" pattern="[0-9 ]{19}"
+                            autocomplete="cc-number">
+                        <input type="text" id="pedido-tarjeta-vencimiento" name="pedido-tarjeta-vencimiento"
+                            maxlength="5" placeholder="MM/AA" pattern="\d{2}/\d{2}" autocomplete="cc-exp">
+                        <input type="text" id="pedido-tarjeta-cvc" name="pedido-tarjeta-cvc" maxlength="4"
+                            placeholder="CVC" pattern="\d{3,4}" autocomplete="cc-csc">
+                    </div>
+                    <button type="submit" class="btn-confirmar-pedido"><i class="fas fa-check-circle"></i> Confirmar
+                        pedido</button>
+                    <button type="button" id="cancelar-pedido" class="cancelar-pedido-btn">Cancelar</button>
+                </form>
+            </div>
+        </section>
+        <section id="ver-pedido" class="ver-pedido-seccion oculto aparecer-scroll" style="display:none;">
+            <div class="pedido-form-card factura-elegante">
+                <span id="cerrar-ver-pedido" class="pedido-modal-close" style="top:10px;right:10px;">&times;</span>
+                <h2>Resumen del Pedido</h2>
+                <div id="ver-pedido-detalle"></div>
+            </div>
+        </section>
+        <!-- CONTACTO -->
+        <section id="contacto" class="aparecer-scroll">
+            <h2>Contacto</h2>
+            <form class="form-contacto">
+                <label for="nombre">Nombre:</label>
+                <input type="text" id="nombre" name="nombre" required>
+                <label for="email">Correo electrónico:</label>
+                <input type="email" id="email" name="email" required>
+                <label for="mensaje">Mensaje:</label>
+                <textarea id="mensaje" name="mensaje" rows="4" required></textarea>
+                <button type="submit">Enviar</button>
+            </form>
+            <!-- Redes sociales en contacto, bien acomodadas -->
+            <div class="footer-social contacto-social">
+                <a href="https://www.instagram.com/" target="_blank" title="Instagram"><i
+                        class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+                <a href="https://wa.me/5493544637516" target="_blank" title="WhatsApp"><i
+                        class="fab fa-whatsapp"></i></a>
+            </div>
+        </section>
+        <!-- Botón para abrir el carrito -->
+        <button id="carrito-btn" class="carrito-btn" title="Ver carrito" aria-label="Ver carrito" tabindex="0"
+            role="button">
+            <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+            <span id="carrito-cantidad">0</span>
+        </button>
+        <!-- Panel lateral del carrito -->
+        <aside id="carrito-panel" class="carrito-panel oculto" role="complementary" aria-label="Carrito de compras">
+            <button id="carrito-x-cerrar" title="Cerrar carrito" aria-label="Cerrar carrito" tabindex="0"
+                style="position:absolute;top:18px;right:18px;background:transparent;border:none;font-size:1.7rem;color:#c62828;cursor:pointer;z-index:10;">
+                <i class="fas fa-times" aria-hidden="true"></i>
+            </button>
+            <h2>Carrito</h2>
+            <div id="carrito-lista" role="list"></div>
+            <div id="carrito-total"></div>
+            <button id="carrito-pagar" class="btn-confirmar-pedido" style="display:none;" tabindex="0"
+                aria-label="Pagar">Pagar</button>
+            <button id="carrito-cerrar" class="cancelar-pedido-btn" tabindex="0"
+                aria-label="Cerrar carrito">Cerrar</button>
+        </aside>
+    </main>
+    <footer class="aparecer-scroll" role="contentinfo">
+        <div class="footer-info">
+            <p>&copy; 2025 marcos oyola. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+    <script src="app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        const loader = document.getElementById('loader-bg');
+        setTimeout(() => {
+            loader.classList.add('oculto');
+            setTimeout(() => loader.style.display = 'none', 700);
+        }, 1200);
+    </script>
+    <script>
+        // Solución para el botón cerrar del modal de pedido
+        // Esto asegura que el botón cierre el modal correctamente
+        // y es seguro si el JS principal falla o no está cargado
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var cerrarBtn = document.getElementById('pedido-cerrar-btn');
+            var modal = document.getElementById('pedido-modal');
+            if (cerrarBtn && modal) {
+                cerrarBtn.addEventListener('click', function () {
+                    modal.classList.add('oculto');
+                    modal.style.display = '';
+                    // Opcional: limpiar formulario
+                    var form = document.getElementById('pedido-form');
+                    if (form) form.reset();
+                    var resumen = document.getElementById('pedido-resumen');
+                    if (resumen) resumen.classList.add('oculto');
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
